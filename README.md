@@ -1,53 +1,68 @@
-# React + TypeScript + Vite
+# Spektrum Transmitter Configuration Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A static web app for editing radio transmitter configurations for Spektrum controllers.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Edit model name
+- Configure channels (name, type, reverse)
+- Set up mixes (from, to, rate)
+- Save configurations locally in browser
+- Export/import configurations as JSON files
 
-## React Compiler
+## Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (LTS version)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
+```bash
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+### Preview
+
+```bash
+npm run preview
+```
+
+## Deployment
+
+This app is configured for deployment to GitHub Pages using GitHub Actions.
+
+1. Push this repository to GitHub.
+2. Enable GitHub Pages in the repository settings (deploy from `gh-pages` branch).
+3. The app will be automatically built and deployed on pushes to the `main` branch.
+
+If deploying to a subdirectory (e.g., `username.github.io/repo-name`), update `vite.config.ts` with the correct base path:
+
+```ts
+export default defineConfig({
+  base: '/repo-name/',
+  // ...
+})
+```
+
+## Technologies
+
+- React 19
+- TypeScript
+- Vite
+- ESLint
 import reactDom from 'eslint-plugin-react-dom'
 
 export default defineConfig([
