@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface SpektrumConfig {
   modelName: string;
@@ -16,14 +16,13 @@ const defaultConfig: SpektrumConfig = {
 };
 
 function App() {
-  const [config, setConfig] = useState<SpektrumConfig>(defaultConfig);
-
-  useEffect(() => {
+  const [config, setConfig] = useState<SpektrumConfig>(() => {
     const saved = localStorage.getItem('spektrumConfig');
     if (saved) {
-      setConfig(JSON.parse(saved));
+      return JSON.parse(saved);
     }
-  }, []);
+    return defaultConfig;
+  });
 
   const saveConfig = () => {
     localStorage.setItem('spektrumConfig', JSON.stringify(config));
@@ -49,7 +48,7 @@ function App() {
           const imported = JSON.parse(e.target?.result as string);
           setConfig(imported);
           localStorage.setItem('spektrumConfig', JSON.stringify(imported));
-        } catch (err) {
+        } catch {
           alert('Invalid JSON file');
         }
       };
