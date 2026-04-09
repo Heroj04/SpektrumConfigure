@@ -56,6 +56,23 @@ function App() {
     }
   };
 
+  const loadFromTransmitter = async () => {
+    try {
+      // @ts-expect-error - showDirectoryPicker is not in types
+      const dirHandle = await window.showDirectoryPicker();
+      const fileHandle = await dirHandle.getFileHandle('config.json');
+      const file = await fileHandle.getFile();
+      const text = await file.text();
+      const imported = JSON.parse(text) as SpektrumConfig;
+      setConfig(imported);
+      localStorage.setItem('spektrumConfig', JSON.stringify(imported));
+      alert('Config loaded from transmitter!');
+    } catch (error) {
+      console.error('Error loading from transmitter:', error);
+      alert('Failed to load config from transmitter. Make sure the transmitter is connected and you select the correct directory.');
+    }
+  };
+
   return (
     <div style={{ padding: '20px' }}>
       <h1>Spektrum Transmitter Configuration Editor</h1>
@@ -143,6 +160,7 @@ function App() {
       <button onClick={saveConfig}>Save Locally</button>
       <button onClick={exportConfig}>Export JSON</button>
       <input type="file" accept=".json" onChange={importConfig} />
+      <button onClick={loadFromTransmitter}>Load from Transmitter</button>
     </div>
   );
 }
